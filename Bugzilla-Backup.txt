@@ -1,0 +1,63 @@
+
+Create a folder 'backupfolder' in C drive
+
+
+TO EXPORT DATABASE
+==================================================================================
+
+Open Command Prompt
+===================
+
+cd c:\xampp\mysql\bin
+mysql.exe -u root --password
+SHOW DATABASES;
+exit
+
+mysqldump -h 127.0.0.1 -u root -p bugzilla>c:\backupfolder\bugzilla.sql
+	username is root
+	Password is blank
+	bugzilla is database name
+	bugzilla.sql is dump file which is going to create
+
+Exporting Database is complete..........!!!!!!!
+
+
+TO IMPORT DATABASE
+===================================================================================
+cd c:\xampp\mysql\bin
+mysql -h 127.0.0.1 -u root -p bugzilla
+SHOW DATABASES;
+DROP DATABASE bugzilla;
+SHOW DATABASES;
+
+----------------------------------------------------------------------
+
+CREATE DATABASE `bugzilla`
+DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+CREATE USER 'bugzilla-owner'@'localhost';
+CREATE USER 'bugzilla-owner'@'127.0.0.1';
+CREATE USER 'bugzilla-owner'@'::1';
+
+SET PASSWORD
+FOR 'bugzilla-owner'@'localhost' = PASSWORD('Password123');
+SET PASSWORD
+FOR 'bugzilla-owner'@'127.0.0.1' = PASSWORD('Password123');
+SET PASSWORD
+FOR 'bugzilla-owner'@'::1' = PASSWORD('Password123');
+
+
+GRANT ALL PRIVILEGES ON
+`bugzilla`.* TO 'bugzilla-owner'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON
+`bugzilla`.* TO 'bugzilla-owner'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON
+`bugzilla`.* TO 'bugzilla-owner'@'::1' WITH GRANT OPTION;
+
+--------------------------------------------------------------------------
+
+
+cd c:\xampp\mysql\bin
+mysql -h 127.0.0.1 -u root -p bugzilla<c:\backupfolder\bugzilla.sql
+
+
